@@ -6,7 +6,7 @@ from sensor_msgs.msg import Image
 from cv_bridge import CvBridge
 from std_msgs.msg import String
 from dynamic_reconfigure.server import Server
-from fira_robosot_race.cfg import ColourRangeConfig
+from robosot_race.cfg import ColourRangeConfig
 
 H_min,S_min,V_min = 0,0,0
 H_max,S_max,V_max = 180,255,255
@@ -71,7 +71,7 @@ def listener():
     
     rospy.init_node('colour_detector', anonymous=True)
 
-    rospy.Subscriber("/cv_camera/image_raw",Image, callback)
+    rospy.Subscriber("/camera/image",Image, callback)
     colour_xy = rospy.Publisher('colour_xy', String, queue_size=1)
     result = rospy.Publisher('colour_result', Image, queue_size=1)
     srv1 = Server(ColourRangeConfig, colour_callback)
