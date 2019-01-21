@@ -1,8 +1,21 @@
 <launch>
   <group ns="red">
     <node name="ball_detector" pkg="robosot_race" type="colour_ball_detector.py" />
+    
+    <rosparam file="$(find robosot_race)/params/red.yaml" command="load" />
   </group>
   <group ns="blue">
     <node name="ball_detector" pkg="robosot_race" type="colour_ball_detector.py" />
+    <rosparam file="$(find robosot_race)/params/blue.yaml" command="load" />
   </group>
+  <group ns="yellow">
+    <node name="ball_detector" pkg="robosot_race" type="colour_ball_detector.py" />
+    <rosparam file="$(find robosot_race)/params/yellow.yaml" command="load" />
+  </group>
+  <group ns="black">
+    <node name="ball_detector" pkg="robosot_race" type="colour_ball_detector.py" />
+    <rosparam file="$(find robosot_race)/params/black.yaml" command="load" />
+  </group>
+
+
 </launch>

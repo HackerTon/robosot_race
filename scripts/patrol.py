@@ -9,15 +9,11 @@ from move_base_msgs.msg import MoveBaseAction, MoveBaseGoal
 
 
 waypoints = [  # This is our list of waypoints
-    [(0.4, 0.4,0.0), tf.transformations.quaternion_from_euler(0, 0, 45*pi/180)],    # kiri dalam
-    [(2.5, 0.4,0.0), tf.transformations.quaternion_from_euler(0, 0, 0*pi/180)],     # kiri atas luar
-    [(0.4, 0.4,0.0), tf.transformations.quaternion_from_euler(0, 0, 45*pi/180)],    # kiri dalam
-    [(0.4, 2.5,0.0), tf.transformations.quaternion_from_euler(0, 0, 0*pi/180)],     # kiri kiri luar
-    
-    [(0.4,-0.4, 0.0), tf.transformations.quaternion_from_euler(0, 0, 325*pi/180)],  # kanan dalam
-    [(2.5,-0.4,0.0), tf.transformations.quaternion_from_euler(0, 0, 0*pi/180)],     # kanan atas luar
-    [(0.4,-0.4,0.0), tf.transformations.quaternion_from_euler(0, 0, 45*pi/180)],    # kanan dalam
-    [(0.4,-2.5,0.0), tf.transformations.quaternion_from_euler(0, 0, 0*pi/180)],     # kanan kanan luar    
+    [(2.1,-0.6,0.0), tf.transformations.quaternion_from_euler(0, 0, 0*pi/180)],     # red
+    [(2.1,-0.3,0.0), tf.transformations.quaternion_from_euler(0, 0, 0*pi/180)],     # blue
+    [(2.1, 0.0,0.0), tf.transformations.quaternion_from_euler(0, 0, 0*pi/180)],     # yellow
+    [(2.1, 0.3,0.0), tf.transformations.quaternion_from_euler(0, 0, 0*pi/180)],     # black
+    [(2.1, 0.6,0.0), tf.transformations.quaternion_from_euler(0, 0, 0*pi/180)],     # white
 ]
 
 

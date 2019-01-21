@@ -1,0 +1,13 @@
+ball_detector:
+  H_max: 30
+  H_min: 10
+  S_max: 231
+  S_min: 122
+  V_max: 255
+  V_min: 161
+  canny_edge_th: 58
+  hough_accum_resolution: 1.5
+  hough_accum_th: 30
+  max_radius: 50
+  min_circle_dist: 44
+  min_radius: 5
