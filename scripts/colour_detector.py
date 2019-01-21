@@ -39,7 +39,7 @@ def callback(data):
     #print lower_blue
     # Threshold the HSV image to get only blue colors
     mask = cv2.inRange(hsv, lower_blue, upper_blue)
-
+    # cv2.imshow("mask", mask)
     # Bitwise-AND mask and original image
     res = cv2.bitwise_and(img,img, mask= mask)
 
@@ -51,7 +51,7 @@ def callback(data):
         cy = int(M['m01']/M['m00'])
         #print cx,",",cy
         rospy.loginfo(rospy.get_caller_id() + " Colour detected at ("+str(cx)+","+str(cy)+")")
-        cv2.circle(res,(cx,cy), 10, (0,0,255), -1)
+        cv2.circle(res,(cx,cy), 3, (0,255,255), -1)
         colour_xy.publish(str(cx)+","+str(cy))
         
     else:

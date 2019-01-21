@@ -1,0 +1,8 @@
+<launch>
+  <group ns="red">
+    <node name="ball_detector" pkg="robosot_race" type="colour_ball_detector.py" />
+  </group>
+  <group ns="blue">
+    <node name="ball_detector" pkg="robosot_race" type="colour_ball_detector.py" />
+  </group>
+</launch>
