@@ -14,7 +14,7 @@ blue_xyr = [-1,-1,-1]
 yellow_xyr = [-1,-1,-1]
 black_xyr = [-1,-1,-1]
 white_xyr = [-1,-1,-1]
-xyr = [red_xyr, blue_xyr, yellow_xyr, black_xyr, white_xyr]
+xyr = [red_xyr, black_xyr, blue_xyr, yellow_xyr, white_xyr]
 red_timer = 0
 
 # Max speed and PID constants
@@ -30,9 +30,9 @@ offset_y_gnd =  -0.45 #0.12 # offset of y-axis
 # This is our list goal coordinates
 waypoints = [  
     [(2.1,-0.6,0.0), tf.transformations.quaternion_from_euler(0, 0, 0*pi/180)],     # red
-    [(2.1,-0.3,0.0), tf.transformations.quaternion_from_euler(0, 0, 0*pi/180)],     # blue
-    [(2.1, 0.0,0.0), tf.transformations.quaternion_from_euler(0, 0, 0*pi/180)],     # yellow
-    [(2.1, 0.3,0.0), tf.transformations.quaternion_from_euler(0, 0, 0*pi/180)],     # black
+    [(2.1,-0.3,0.0), tf.transformations.quaternion_from_euler(0, 0, 0*pi/180)],     # black
+    [(2.1, 0.0,0.0), tf.transformations.quaternion_from_euler(0, 0, 0*pi/180)],     # blue
+    [(2.1, 0.3,0.0), tf.transformations.quaternion_from_euler(0, 0, 0*pi/180)],     # yellow
     [(2.1, 0.6,0.0), tf.transformations.quaternion_from_euler(0, 0, 0*pi/180)],     # white
 ]
 
@@ -117,10 +117,11 @@ def robot_commander():
     command = Twist()
     # state 0 - turn around
     # state 1 - get nearest ball
-    # state 2 - go to ball
-    # state 3 - slow approach
+    # state 2 - move to ball
+    # state 3 - approach ball
     # state 4 - go to goal
-    # state 5 - reverse from goal and turn
+    # state 5 - approach goal 
+    # state 6 - reverse from goal and turn
     STATE = 1
     # BALL_COLOUR
     # 0 - red 
@@ -130,18 +131,6 @@ def robot_commander():
     # 4 - white 
     BALL_COLOUR = 0
     while not rospy.is_shutdown():
-        # # 1. if radius > 0
-        # # 2. set angular to kpa*ball_x 
-        # # 3. set linear to kpl*ball_y
-        # # 4. move
-        # if red_xyr[2] > 0:
-        #     command.angular.z = kp_a * red_xyr[0]
-        #     command.linear.x = kp_l * (red_xyr[1] - offset_y_gnd)
-        # else:
-        #     command.angular.z = 0.2
-        #     command.linear.x = 0.0
-        # rospy.loginfo(command)
-        # pub.publish(command)
         if STATE == 0: # turn around
             command.angular.z = 0.2
             command.linear.x = 0.05
@@ -193,7 +182,7 @@ def robot_commander():
 
         elif STATE == 3: # Slow approach ball
             command.angular.z = 0.0
-            command.linear.x = 0.1
+            command.linear.x = 0.08
             slow_approach_cnt+=1
             if slow_approach_cnt > 30:
                 slow_approach_cnt = 0
@@ -216,7 +205,7 @@ def robot_commander():
                 slow_approach_cnt = 0
                 STATE = 6
 
-        elif STATE == 6: # reverse from goal
+        elif STATE == 6: # reverse from goal and turn
             slow_approach_cnt+=1
             if slow_approach_cnt < 50:
                 # reverse

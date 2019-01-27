@@ -45,8 +45,6 @@ def callback(data):
     # Convert BGR to HSV
     hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
     # define range of blue color in HSV
-    #lower_hsv = np.array([105,0,0])
-    #upper_hsv = np.array([179,255,255])
     lower_hsv = np.array([H_min,S_min,V_min])
     upper_hsv = np.array([H_max,S_max,V_max])
     # Threshold the HSV image to get only wanted colors
@@ -64,7 +62,6 @@ def callback(data):
     # cv2.imshow("dilation", dilation)
     # cv2.imshow("canny_edge", canny_edge)
     # Then detect circles in the image
-    # circles = cv2.HoughCircles(gray,cv2.HOUGH_GRADIENT,0.2,100,param1=100,param2=28,minRadius=20,maxRadius=100)
     circles = cv2.HoughCircles(dilation,cv2.HOUGH_GRADIENT,hough_accum_resolution,min_circle_dist,param1=canny_edge_th,param2=hough_accum_th,minRadius=min_radius,maxRadius=max_radius)
     # print circles
     # ensure at least 1 circle was found
@@ -99,9 +96,6 @@ def callback(data):
     cx = 0.5 - _cx
     cy = 0.5 - _cy 
     cr = 1.0*circles_sorted[-1][2]/img.shape[1]
-    # cx = img.shape[1]/2 - circles_sorted[-1][0]
-    # cy = img.shape[0]/2 - circles_sorted[-1][1]
-    # cr = circles_sorted[-1][2]
 
     # and publish its coordinate and radius size
     ball_xyr.publish(str(cx)+","+str(cy)+","+str(cr))
