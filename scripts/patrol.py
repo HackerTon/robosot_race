@@ -8,11 +8,11 @@ from math import pi
 from move_base_msgs.msg import MoveBaseAction, MoveBaseGoal
 
 
-waypoints = [  # This is our list of waypoints
+waypoints = [  # This is our list of goal coordinates
     [(2.1,-0.6,0.0), tf.transformations.quaternion_from_euler(0, 0, 0*pi/180)],     # red
-    [(2.1,-0.3,0.0), tf.transformations.quaternion_from_euler(0, 0, 0*pi/180)],     # blue
-    [(2.1, 0.0,0.0), tf.transformations.quaternion_from_euler(0, 0, 0*pi/180)],     # yellow
-    [(2.1, 0.3,0.0), tf.transformations.quaternion_from_euler(0, 0, 0*pi/180)],     # black
+    [(2.1,-0.3,0.0), tf.transformations.quaternion_from_euler(0, 0, 0*pi/180)],     # black
+    [(2.1, 0.0,0.0), tf.transformations.quaternion_from_euler(0, 0, 0*pi/180)],     # blue
+    [(2.1, 0.3,0.0), tf.transformations.quaternion_from_euler(0, 0, 0*pi/180)],     # yellow
     [(2.1, 0.6,0.0), tf.transformations.quaternion_from_euler(0, 0, 0*pi/180)],     # white
 ]
 

@@ -155,10 +155,17 @@ def robot_commander():
                 BALL_COLOUR = min_y_i 
                 lost_ball_cnt = 0
                 STATE = 2
+                STATE = 10 # comment this line after testing
             else:
                 STATE = 0
 
         elif STATE == 2: # move towards ball
+            max_a = 0.5  # max turning speed, rad/s
+            kp_a = 1.2   # proportional gain for turning speed
+            max_l = 0.15 # max forward speed, m/s
+            kp_l = 0.6   # proportional gain for forward speed 
+            offset_y_gnd =  -0.45 # determines how near to the ball will the robot stop
+
             command.angular.z = kp_a * xyr[BALL_COLOUR][0]
             command.linear.x = kp_l * (xyr[BALL_COLOUR][1] - offset_y_gnd)
             # limit the speeds
@@ -172,6 +179,7 @@ def robot_commander():
             # check if ball is near enough
             if xyr[BALL_COLOUR][1] < offset_y_gnd and -0.05<xyr[BALL_COLOUR][0]<0.05:
                 STATE = 3
+                STATE = 10 # comment this line after testing
 
             # check if ball is lost
             # if yes, start looking again
@@ -182,11 +190,12 @@ def robot_commander():
 
         elif STATE == 3: # Slow approach ball
             command.angular.z = 0.0
-            command.linear.x = 0.08
+            command.linear.x = 0.08 # approach speed
             slow_approach_cnt+=1
-            if slow_approach_cnt > 30:
+            if slow_approach_cnt > 30:  # how long to move like this
                 slow_approach_cnt = 0
                 STATE = 4
+                STATE = 10 # comment this line after testing
 
         elif STATE == 4: # go to goal
             goal = goal_pose(waypoints[BALL_COLOUR])
@@ -196,28 +205,31 @@ def robot_commander():
             client.wait_for_result(rospy.Duration.from_sec(60.0))
             # Once reached goal, approach goal
             STATE = 5
+            STATE = 10 # comment this line after testing
 
         elif STATE == 5: # approach goal
             command.angular.z = 0.0
-            command.linear.x = 0.08
+            command.linear.x = 0.08 # approach speed
             slow_approach_cnt+=1
-            if slow_approach_cnt > 50:
+            if slow_approach_cnt > 50: # how long to move like this
                 slow_approach_cnt = 0
                 STATE = 6
+                STATE = 10 # comment this line after testing
 
         elif STATE == 6: # reverse from goal and turn
             slow_approach_cnt+=1
-            if slow_approach_cnt < 50:
+            if slow_approach_cnt < 50:      # how long to reverse
                 # reverse
                 command.angular.z = 0.0
-                command.linear.x = -0.08
-            elif slow_approach_cnt < 100:
+                command.linear.x = -0.08    # reverse speed
+            elif slow_approach_cnt < 100:   # how long to turn away
                 # turn
-                command.angular.z = 0.4
+                command.angular.z = 0.4     # turning speed
                 command.linear.x = 0.0
             else:
                 slow_approach_cnt = 0
                 STATE = 1
+                STATE = 10 # comment this line after testing
         
 
         elif STATE == 10: # Stop
