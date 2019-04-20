@@ -125,9 +125,9 @@ def robot_commander():
     STATE = 1
     # BALL_COLOUR
     # 0 - red 
-    # 1 - blue 
-    # 2 - yellow 
-    # 3 - black 
+    # 1 - black 
+    # 2 - blue 
+    # 3 - yellow 
     # 4 - white 
     BALL_COLOUR = 0
     while not rospy.is_shutdown():
